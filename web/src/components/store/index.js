@@ -1,12 +1,11 @@
-import { createStore, combineReducers} from "redux";
+import { createStore, combineReducers } from "redux";
 
-import news from "../reducers/news";
-import search from "../reducers/search";
+import vet from "../reducers/vet";
 
-const reducers = combineReducers({ news,search });
+const reducers = combineReducers({ vet });
 
 const store = createStore(
-    reducers,
+  reducers,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

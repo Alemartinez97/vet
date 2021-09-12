@@ -42,9 +42,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Table = (props) => {
   const classes = useStyles();
-  const { reset, submitting, event, errors, touched,vet} = props;
+  const { submitting, vet } = props;
   const [open, setOpen] = React.useState(false);
-  const [data, setData] = React.useState(false);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [vetData, setVetData] = React.useState({
     name: "",
@@ -89,7 +88,7 @@ const Table = (props) => {
       if (vetData._id) {
         handleClose();
         return api
-          .put(`/api/task/${vetData._id}`, veterinary)
+          .put(`/api/vet/${vetData._id}`, veterinary)
           .then((data) => {
             props.editVet(veterinary);
             enqueueSnackbar(
@@ -172,8 +171,10 @@ const Table = (props) => {
           <TextField
             id="vet"
             // inputRef={description}
-            onChange={(e) => setVetData({ ...vetData, vet: e.target.value })}
-            value={vetData.phone}
+            onChange={(e) =>
+              setVetData({ ...vetData, specialist: e.target.value })
+            }
+            value={vetData.specialist}
             label={"Veterinario"}
             fullWidth
           />
@@ -234,13 +235,15 @@ const Table = (props) => {
               field: "price",
             },
           ]}
-          // data={service}
+          data={service}
           editable={{
             onRowAdd: async (newData) => {
-              return await setService({
-                service: newData.service,
-                price: newData.price
-              });
+              return await setService(
+                service.concat({
+                  service: newData.service,
+                  price: newData.price,
+                })
+              );
               //   return api.post("/api/vet", newData).then((result) => {
               //     const person = {
               //       id: result.data.response,
@@ -249,17 +252,15 @@ const Table = (props) => {
               //     props.setVet(person);
               //   });
             },
-            //     onRowUpdate: (newData) => {
-            //   return api
-            //     .put(`/api/vet/${newData.id}`, newData)
-            //     .then((result) => {
-            //       const person = {
-            //         id: result.data.response,
-            //         ...newData,
-            //       };
-            //       props.editVet(person);
-            //     });
-            //     },
+            onRowUpdate: async (e, newData) => {
+              debugger;
+              let arr = await service.filter(
+                (e, index) => index !== newData.tableData.id
+              );
+              await arr.push(e);
+              await console.log(arr);
+              return await setService(arr);
+            },
             //      onRowDelete: (newData) => {
             //   return api
             //     ._delete(`/api/vet/${newData._id}`)
@@ -364,6 +365,7 @@ const Table = (props) => {
               icon: () => <span>{<tableIcons.Edit />}</span>,
               onClick: (event, rowData) => {
                 setVetData(rowData);
+                setService(rowData.service);
                 setOpen(true);
               },
               onRowUpdate: true,
@@ -408,37 +410,9 @@ const Table = (props) => {
               title: "Departamento",
               field: "apartament",
             },
-            {
-              title: "Nombre Servicio",
-              field: "service",
-            },
-            {
-              title: "Precio Servicio",
-              field: "price",
-            },
           ]}
-          // data={vet}
+          data={vet}
           editable={{
-            // onRowAdd: (newData) => {
-            //   return api.post("/api/vet", newData).then((result) => {
-            //     const person = {
-            //       id: result.data.response,
-            //       ...newData,
-            //     };
-            //     props.setVet(person);
-            //   });
-            // },
-            // onRowUpdate: (newData) => {
-            //   return api
-            //     .put(`/api/vet/${newData.id}`, newData)
-            //     .then((result) => {
-            //       const person = {
-            //         id: result.data.response,
-            //         ...newData,
-            //       };
-            //       props.editVet(person);
-            //     });
-            // },
             onRowDelete: (newData) => {
               return api
                 ._delete(`/api/vet/${newData._id}`)

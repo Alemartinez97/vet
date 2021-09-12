@@ -15,11 +15,11 @@ import National from "./components/news/national";
 import Search from "./components/news/search";
 import Local from "./components/news/local";
 import Tecnology from "./components/news/tecnology";
-import Table from "./components/table"
+import Table from "./components/table";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import instance from "./components/utils/http";
-import { addNews } from "./components/actions/index";
+import { addVet } from "./components/actions/index";
 
 import routes from "./components/routes";
 import SearchAppBar from "./components/forms/SearchAppBar";
@@ -29,11 +29,9 @@ const App = connect(
   mapDispatchToProps
 )((props) => {
   useEffect(() => {
-    instance
-      .get(`/allthenews?search=Coronavirus&categories=ULTIMAS_NOTICIAS`)
-      .then((result) => {
-        props.addNews(result.data);
-      });
+    instance.get(`/api/vet`).then((result) => {
+      props.addVet(result.data);
+    });
   });
   return (
     <BrowserRouter>
@@ -57,7 +55,7 @@ const App = connect(
 });
 function mapDispatchToProps(dispatch) {
   return {
-    addNews: (news) => dispatch(addNews(news)),
+    addVet: (vet) => dispatch(addVet(vet)),
   };
 }
 const ConnectedApp = (props) => {

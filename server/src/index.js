@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const newsRouters = require("./routers/newsRouter");
 const userRoutes = require("./routers/index");
 const reserveRoutes = require("./routers/reserve");
+const vetRoutes = require("./routers/vet");
 const swaggerJsdoc = require('./swaggerJsdoc')
 var cors = require("cors");
 require("./auth/auth");
@@ -24,5 +25,6 @@ app.use(express.json());
 app.use(newsRouters);
 app.use(userRoutes);
 app.use(reserveRoutes);
+app.use(vetRoutes);
 app.use(swaggerJsdoc);
 app.listen(PORT, () => console.log("Starting app in port",PORT));
