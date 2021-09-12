@@ -201,6 +201,11 @@ const Menu = ({ history, addNews }) => {
             Veterinarias
             </ListItemIcon >
           </ListItem>
+          <ListItem  button>
+            <ListItemIcon onClick={() => history.push("/tableUser")}>
+            Usuarios
+            </ListItemIcon >
+          </ListItem>
           <ListItem button>
             <ListItemIcon  onClick={() => logout()}>
               Cerrar Sesion

@@ -19,10 +19,11 @@ import Table from "./components/table";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import instance from "./components/utils/http";
-import { addVet } from "./components/actions/index";
+import { addVet, addUser } from "./components/actions/index";
 
 import routes from "./components/routes";
 import SearchAppBar from "./components/forms/SearchAppBar";
+import tableUser from "./components/tableUser";
 
 const App = connect(
   null,
@@ -32,6 +33,9 @@ const App = connect(
     instance.get(`/api/vet`).then((result) => {
       props.addVet(result.data);
     });
+    instance.get(`/api/user`).then((result) => {
+      props.addUser(result.data);
+    });
   });
   return (
     <BrowserRouter>
@@ -40,6 +44,7 @@ const App = connect(
         <Route exact path={routes.signup} component={Signup} />
         <Route exact path={routes.login} component={Login} />
         <Route exact path={routes.table} component={Table} />
+        <Route exact path={routes.tableUser} component={tableUser} />
         <Route exact path={routes.politics} component={Politics} />
         <Route exact path={routes.economy} component={Economy} />
         <Route exact path={routes.international} component={International} />
@@ -56,6 +61,7 @@ const App = connect(
 function mapDispatchToProps(dispatch) {
   return {
     addVet: (vet) => dispatch(addVet(vet)),
+    addUser: (user) => dispatch(addUser(user)),
   };
 }
 const ConnectedApp = (props) => {

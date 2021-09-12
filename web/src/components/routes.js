@@ -11,4 +11,5 @@ export default {
   local: "/local",
   tecnology: "/tecnology",
   table: "/table",
+  tableUser: "/tableUser",
 };

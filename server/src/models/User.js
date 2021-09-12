@@ -13,6 +13,12 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  username: {
+    type: String,
+  },
+  role: {
+    type: String,
+  },
 });
 
 UserSchema.pre("save", async function (next) {

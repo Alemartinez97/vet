@@ -4,7 +4,7 @@ const app = express();
 const { Vet } = require("../models/Vet");
 router.get("/api/vet", async (req, res) => {
   const vet = await Vet.find();
-  console.log(JSON.stringify(vet))
+  console.log(JSON.stringify(vet)) 
   res.send(vet);
 });
 // router.get("/reserve", async (req, res) => {

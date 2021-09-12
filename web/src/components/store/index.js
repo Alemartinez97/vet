@@ -1,8 +1,9 @@
 import { createStore, combineReducers } from "redux";
 
 import vet from "../reducers/vet";
+import user from "../reducers/user";
 
-const reducers = combineReducers({ vet });
+const reducers = combineReducers({ vet,user });
 
 const store = createStore(
   reducers,

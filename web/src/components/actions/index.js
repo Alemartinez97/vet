@@ -5,6 +5,10 @@ import {
   EDIT_VET,
   DELETE_VET,
   ADD_VET,
+  SET_USER,
+  DELETE_USER,
+  EDIT_USER,
+  ADD_USER,
 } from "../constant/actions-types";
 
 export const addNews = (payload) => {
@@ -25,4 +29,17 @@ export const editVet = (payload) => {
 };
 export const addVet = (payload) => {
   return { type: ADD_VET, payload };
+};
+
+export const setUser = (payload) => {
+  return { type: SET_USER, payload };
+};
+export const deleteUser = (payload) => {
+  return { type: DELETE_USER, payload };
+};
+export const editUser = (payload) => {
+  return { type: EDIT_USER, payload };
+};
+export const addUser = (payload) => {
+  return { type: ADD_USER, payload };
 };
